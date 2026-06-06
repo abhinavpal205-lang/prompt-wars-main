@@ -17,7 +17,10 @@ from app.db import create_db_engine, init_db
 from app.deps import limiter
 from app.errors import register_exception_handlers
 from app.logging_config import setup_logging
+from app.routers import checkin, history, profile, realtime
 from app.security import NoteCipher
+from app.services.notifier import make_email_sender
+from app.services.openai_client import OpenAIGateway
 
 
 def _handle_rate_limit(request: Request, exc: Exception) -> Response:
@@ -39,6 +42,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.state.settings = settings
     app.state.engine = create_db_engine(settings.database_url)
     app.state.cipher = NoteCipher(settings.fernet_key)
+    app.state.gateway = OpenAIGateway(settings)
+    app.state.email_sender = make_email_sender(settings)
 
     # Same-origin in production (nginx proxies /api); CORS covers local dev.
     app.add_middleware(
@@ -51,6 +56,11 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.state.limiter = limiter
     app.add_exception_handler(RateLimitExceeded, _handle_rate_limit)
     register_exception_handlers(app)
+
+    app.include_router(realtime.router)
+    app.include_router(checkin.router)
+    app.include_router(profile.router)
+    app.include_router(history.router)
 
     @app.get("/healthz")
     def healthz() -> dict[str, str]:
