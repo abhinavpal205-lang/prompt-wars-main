@@ -1,0 +1,55 @@
+.wrap {
+  max-width: 40rem;
+}
+
+.message {
+  font-size: 1.15rem;
+  max-width: 52ch;
+}
+
+.helpline {
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+  margin: var(--space-3) 0;
+}
+
+.free {
+  color: var(--muted);
+  margin: 0 0 var(--space-2);
+}
+
+.numbers {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.numbers a {
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 750;
+  color: var(--accent-strong);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  background: var(--accent-soft);
+}
+
+.numbers a:hover {
+  text-decoration: underline;
+}
+
+.back {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+  color: inherit;
+}

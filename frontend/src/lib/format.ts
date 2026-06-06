@@ -25,12 +25,7 @@ export function formatDate(iso: string): string {
  * Build an SVG polyline `points` string for a 0-100 series.
  * Y is inverted (SVG origin is top-left); a single point centers horizontally.
  */
-export function trendPoints(
-  values: number[],
-  width: number,
-  height: number,
-  padding = 4,
-): string {
+export function trendPoints(values: number[], width: number, height: number, padding = 4): string {
   if (values.length === 0) return '';
   const innerW = width - padding * 2;
   const innerH = height - padding * 2;

@@ -1,0 +1,88 @@
+.card {
+  max-width: 44rem;
+}
+
+.band {
+  display: inline-block;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: var(--space-2) var(--space-3);
+}
+
+.bandCalm {
+  color: var(--band-calm-ink);
+  background: var(--band-calm-bg);
+}
+
+.bandMild {
+  color: var(--band-mild-ink);
+  background: var(--band-mild-bg);
+}
+
+.bandElevated {
+  color: var(--band-elevated-ink);
+  background: var(--band-elevated-bg);
+}
+
+.bandHigh {
+  color: var(--band-high-ink);
+  background: var(--band-high-bg);
+}
+
+.message {
+  font-size: 1.1rem;
+  max-width: 56ch;
+}
+
+.triggers {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.triggers li {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: var(--space-1) var(--space-3);
+}
+
+.tips li {
+  margin-bottom: var(--space-1);
+}
+
+.signals {
+  margin: var(--space-3) 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+}
+
+.signals summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.signalsNote {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.done {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-4);
+  font-size: 1.05rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.done:hover {
+  background: var(--accent-strong);
+}

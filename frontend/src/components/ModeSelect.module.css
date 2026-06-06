@@ -1,0 +1,44 @@
+.lead {
+  color: var(--muted);
+  max-width: 50ch;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: flex-start;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: var(--space-4);
+  cursor: pointer;
+  color: inherit;
+  transition: border-color 120ms ease;
+}
+
+.card:hover {
+  border-color: var(--accent);
+}
+
+.icon {
+  font-size: 1.8rem;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 650;
+}
+
+.desc {
+  color: var(--muted);
+}
