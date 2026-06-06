@@ -1,0 +1,50 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+*.egg-info/
+build/
+
+# Node
+node_modules/
+dist/
+.vite/
+*.tsbuildinfo
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+backend/data/
+
+# Coverage / reports
+.coverage
+coverage/
+htmlcov/
+coverage.xml
+
+# Media — never committed (privacy + size)
+*.mp3
+*.wav
+*.webm
+*.mp4
+*.mov
+*.ogg
+*.m4a
+*.avi
+*.mkv
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
