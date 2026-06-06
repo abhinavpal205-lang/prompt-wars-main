@@ -1,23 +1,42 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { api } from './api/client';
 import styles from './App.module.css';
 import { CrisisScreen } from './components/CrisisScreen';
 import { Disclaimer } from './components/Disclaimer';
 import { FormCheckin } from './components/FormCheckin';
 import { ModeSelect } from './components/ModeSelect';
+import { ParentSettings } from './components/ParentSettings';
 import { ResultCard } from './components/ResultCard';
-import type { CheckinResult } from './types';
+import { TrendDashboard } from './components/TrendDashboard';
+import { VoiceCheckin } from './components/VoiceCheckin';
+import type { CheckinResult, ProfileOut } from './types';
 
-type Screen = 'home' | 'form' | 'voice' | 'result' | 'crisis';
+type Screen = 'home' | 'form' | 'voice' | 'result' | 'crisis' | 'dashboard' | 'settings';
 
 export function App() {
   const [screen, setScreen] = useState<Screen>('home');
   const [result, setResult] = useState<CheckinResult | null>(null);
+  const [profile, setProfile] = useState<ProfileOut | null>(null);
+  const [profileLoaded, setProfileLoaded] = useState(false);
+
+  useEffect(() => {
+    api
+      .getProfile()
+      .then(setProfile)
+      .catch(() => setProfile(null))
+      .finally(() => {
+        setProfileLoaded(true);
+      });
+  }, []);
 
   const handleResult = (checkin: CheckinResult) => {
     setResult(checkin);
     // The crisis path overrides everything, before any scoring UI.
     setScreen(checkin.crisis ? 'crisis' : 'result');
   };
+
+  const needsOnboarding = profileLoaded && profile !== null && !profile.onboarded;
+  const showOnboarding = needsOnboarding && screen !== 'crisis';
 
   return (
     <div className={styles.shell}>
@@ -35,6 +54,28 @@ export function App() {
           Sahaay
         </button>
         <nav aria-label="Main">
+          {!showOnboarding && (
+            <>
+              <button
+                type="button"
+                className={styles.navLink}
+                onClick={() => {
+                  setScreen('dashboard');
+                }}
+              >
+                Dashboard
+              </button>
+              <button
+                type="button"
+                className={styles.navLink}
+                onClick={() => {
+                  setScreen('settings');
+                }}
+              >
+                Settings
+              </button>
+            </>
+          )}
           <button
             type="button"
             className={styles.crisisLink}
@@ -48,35 +89,76 @@ export function App() {
       </header>
 
       <main id="main" className={styles.main}>
-        {screen === 'home' && (
-          <ModeSelect
-            onVoice={() => {
-              setScreen('voice');
-            }}
-            onForm={() => {
-              setScreen('form');
-            }}
-          />
+        {!profileLoaded && <p role="status">Loading…</p>}
+
+        {profileLoaded && showOnboarding && profile && (
+          <>
+            <Disclaimer variant="callout" />
+            <ParentSettings
+              profile={profile}
+              intro
+              onSaved={(saved) => {
+                setProfile(saved);
+                setScreen('home');
+              }}
+            />
+          </>
         )}
-        {screen === 'form' && <FormCheckin onResult={handleResult} />}
-        {screen === 'voice' && (
-          <p role="status">Voice check-in is coming right up — try the quick form meanwhile.</p>
-        )}
-        {screen === 'result' && result && (
-          <ResultCard
-            result={result}
-            onDone={() => {
-              setScreen('home');
-            }}
-          />
-        )}
-        {screen === 'crisis' && (
-          <CrisisScreen
-            resources={result?.crisis_resources}
-            onBack={() => {
-              setScreen('home');
-            }}
-          />
+
+        {profileLoaded && !showOnboarding && (
+          <>
+            {screen === 'home' && (
+              <ModeSelect
+                onVoice={() => {
+                  setScreen('voice');
+                }}
+                onForm={() => {
+                  setScreen('form');
+                }}
+              />
+            )}
+            {screen === 'form' && <FormCheckin onResult={handleResult} />}
+            {screen === 'voice' && (
+              <VoiceCheckin
+                onResult={handleResult}
+                onUseForm={() => {
+                  setScreen('form');
+                }}
+              />
+            )}
+            {screen === 'result' && result && (
+              <ResultCard
+                result={result}
+                onDone={() => {
+                  setScreen('dashboard');
+                }}
+              />
+            )}
+            {screen === 'crisis' && (
+              <CrisisScreen
+                resources={result?.crisis_resources}
+                onBack={() => {
+                  setScreen('home');
+                }}
+              />
+            )}
+            {screen === 'dashboard' && (
+              <TrendDashboard
+                onCheckin={() => {
+                  setScreen('home');
+                }}
+              />
+            )}
+            {screen === 'settings' && profile && (
+              <ParentSettings
+                profile={profile}
+                onSaved={(saved) => {
+                  setProfile(saved);
+                  setScreen('home');
+                }}
+              />
+            )}
+          </>
         )}
       </main>
 
