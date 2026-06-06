@@ -1,0 +1,112 @@
+/* Design tokens + base styles. Calm, warm, WCAG AA contrast. */
+
+:root {
+  --bg: #faf7f2;
+  --surface: #ffffff;
+  --ink: #2a2d34;
+  --muted: #595f66;
+  --accent: #2f6e68;
+  --accent-strong: #1d544e;
+  --accent-soft: #e3f0ee;
+  --border: #e3ddd3;
+  --danger: #a3322e;
+  --danger-soft: #fbeceb;
+
+  /* Bands: dark text on soft backgrounds (color is never the only cue). */
+  --band-calm-ink: #1d5c3a;
+  --band-calm-bg: #e6f3ea;
+  --band-mild-ink: #6b5414;
+  --band-mild-bg: #f7f0db;
+  --band-elevated-ink: #8a4516;
+  --band-elevated-bg: #fbeadc;
+  --band-high-ink: #8c2b27;
+  --band-high-bg: #fbe7e6;
+
+  --radius: 14px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgb(42 45 52 / 0.08), 0 4px 16px rgb(42 45 52 / 0.06);
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --font-body:
+    system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.55;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.25;
+  margin: 0 0 var(--space-2);
+}
+
+p {
+  margin: 0 0 var(--space-3);
+}
+
+button {
+  font: inherit;
+}
+
+a {
+  color: var(--accent-strong);
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent-strong);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.skipLink {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--surface);
+  color: var(--ink);
+  padding: var(--space-2) var(--space-3);
+  z-index: 10;
+}
+
+.skipLink:focus {
+  left: var(--space-2);
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
