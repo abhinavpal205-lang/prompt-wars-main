@@ -187,7 +187,7 @@ export function ParentSettings({ profile, intro = false, onSaved }: ParentSettin
             </p>
           )}
         </div>
-        <button type="submit" className={styles.save} disabled={saving}>
+        <button type="submit" className="btnPrimary" disabled={saving}>
           {saving ? 'Saving…' : intro ? "Let's begin" : 'Save settings'}
         </button>
       </form>

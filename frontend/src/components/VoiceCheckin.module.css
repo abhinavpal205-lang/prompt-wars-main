@@ -31,34 +31,6 @@
   height: 1.1rem;
 }
 
-.primary {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-sm);
-  padding: var(--space-2) var(--space-4);
-  font-size: 1.05rem;
-  font-weight: 650;
-  cursor: pointer;
-}
-
-.primary:hover:enabled {
-  background: var(--accent-strong);
-}
-
-.primary:disabled {
-  opacity: 0.6;
-  cursor: progress;
-}
-
-.secondary {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: var(--space-2) var(--space-3);
-  cursor: pointer;
-}
-
 .status {
   font-weight: 600;
 }

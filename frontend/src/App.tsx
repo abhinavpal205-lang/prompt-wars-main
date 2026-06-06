@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { api } from './api/client';
 import styles from './App.module.css';
+import { AppHeader } from './components/AppHeader';
 import { CalmingSession } from './components/CalmingSession';
 import { CrisisScreen } from './components/CrisisScreen';
 import { Disclaimer } from './components/Disclaimer';
@@ -76,50 +77,21 @@ export function App() {
       <a className="skipLink" href="#main">
         Skip to main content
       </a>
-      <header className={styles.header}>
-        <button
-          type="button"
-          className={styles.brand}
-          onClick={() => {
-            setScreen('home');
-          }}
-        >
-          Sahaay
-        </button>
-        <nav aria-label="Main">
-          {!showOnboarding && (
-            <>
-              <button
-                type="button"
-                className={styles.navLink}
-                onClick={() => {
-                  setScreen('dashboard');
-                }}
-              >
-                Dashboard
-              </button>
-              <button
-                type="button"
-                className={styles.navLink}
-                onClick={() => {
-                  setScreen('settings');
-                }}
-              >
-                Settings
-              </button>
-            </>
-          )}
-          <button
-            type="button"
-            className={styles.crisisLink}
-            onClick={() => {
-              setScreen('crisis');
-            }}
-          >
-            Need help now?
-          </button>
-        </nav>
-      </header>
+      <AppHeader
+        showNav={!showOnboarding}
+        onHome={() => {
+          setScreen('home');
+        }}
+        onDashboard={() => {
+          setScreen('dashboard');
+        }}
+        onSettings={() => {
+          setScreen('settings');
+        }}
+        onCrisis={() => {
+          setScreen('crisis');
+        }}
+      />
 
       {/* tabIndex -1 lets the skip link and screen changes set focus here */}
       <main id="main" className={styles.main} ref={mainRef} tabIndex={-1}>

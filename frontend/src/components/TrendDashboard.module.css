@@ -9,16 +9,6 @@
   gap: var(--space-2);
 }
 
-.primary {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-sm);
-  padding: var(--space-2) var(--space-4);
-  font-weight: 650;
-  cursor: pointer;
-}
-
 .chartCard {
   margin: 0 0 var(--space-4);
   background: var(--surface);
@@ -120,18 +110,4 @@
 .muted {
   color: var(--muted);
   max-width: 56ch;
-}
-
-.danger {
-  background: var(--danger-soft);
-  color: var(--danger);
-  border: 1px solid var(--danger);
-  border-radius: var(--radius-sm);
-  padding: var(--space-2) var(--space-3);
-  font-weight: 650;
-  cursor: pointer;
-}
-
-.danger:disabled {
-  opacity: 0.6;
 }

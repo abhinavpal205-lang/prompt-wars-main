@@ -58,7 +58,7 @@ export function CalmingSession({ band, triggers, onDone, onCrisis }: CalmingSess
       <section aria-labelledby="calming-heading">
         <h1 id="calming-heading">That&apos;s your minute</h1>
         <p>Hope that helped — be kind to yourself today.</p>
-        <button type="button" className={styles.primary} onClick={onDone}>
+        <button type="button" className="btnPrimary" onClick={onDone}>
           Back to your reflection
         </button>
       </section>
@@ -76,7 +76,7 @@ export function CalmingSession({ band, triggers, onDone, onCrisis }: CalmingSess
       {error ? (
         <div>
           <p role="alert">{error}</p>
-          <button type="button" className={styles.primary} onClick={onDone}>
+          <button type="button" className="btnPrimary" onClick={onDone}>
             Back to your reflection
           </button>
         </div>
@@ -101,7 +101,7 @@ export function CalmingSession({ band, triggers, onDone, onCrisis }: CalmingSess
               </p>
             ))}
           </div>
-          <button type="button" className={styles.primary} onClick={finish}>
+          <button type="button" className="btnPrimary" onClick={finish}>
             End now
           </button>
         </>

@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Request
 
 from app.deps import GatewayDep, limiter
-from app.errors import AppError
+from app.errors import CalmingContextError
 from app.schemas import RealtimeTokenRequest, RealtimeTokenResponse
 from app.services.realtime_profiles import build_calming_instructions, intake_instructions
 
@@ -12,13 +12,6 @@ router = APIRouter(prefix="/api/realtime", tags=["realtime"])
 _INTAKE_TTL_SECONDS = 600
 # Hard server-side backstop to the calming companion's 1-minute cap.
 _CALMING_TTL_SECONDS = 70
-
-
-class CalmingContextError(AppError):
-    """A calming token was requested without valid non-crisis context."""
-
-    status_code = 400
-    code = "calming_context_required"
 
 
 @router.post("/token", response_model=RealtimeTokenResponse)

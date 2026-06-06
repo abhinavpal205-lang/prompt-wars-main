@@ -80,7 +80,7 @@ export function VoiceCheckin({ onResult, onUseForm }: VoiceCheckinProps) {
             />
             <span>Also use my camera for soft visual cues (optional)</span>
           </label>
-          <button type="button" className={styles.primary} onClick={start}>
+          <button type="button" className="btnPrimary" onClick={start}>
             Start the conversation
           </button>
         </div>
@@ -99,7 +99,7 @@ export function VoiceCheckin({ onResult, onUseForm }: VoiceCheckinProps) {
       {error && (
         <div className={styles.errorBlock}>
           <p role="alert">{error}</p>
-          <button type="button" className={styles.secondary} onClick={onUseForm}>
+          <button type="button" className="btnSecondary" onClick={onUseForm}>
             Use the quick form instead
           </button>
         </div>
@@ -117,7 +117,7 @@ export function VoiceCheckin({ onResult, onUseForm }: VoiceCheckinProps) {
       </div>
 
       {status === 'live' && (
-        <button type="button" className={styles.primary} onClick={finish} disabled={submitting}>
+        <button type="button" className="btnPrimary" onClick={finish} disabled={submitting}>
           {submitting ? 'Reflecting…' : "I'm done — reflect"}
         </button>
       )}

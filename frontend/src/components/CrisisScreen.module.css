@@ -44,12 +44,3 @@
 .numbers a:hover {
   text-decoration: underline;
 }
-
-.back {
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: var(--space-2) var(--space-3);
-  cursor: pointer;
-  color: inherit;
-}

@@ -160,7 +160,7 @@ export function FormCheckin({ onResult }: FormCheckinProps) {
 
         <button
           type="submit"
-          className={styles.submit}
+          className="btnPrimary"
           disabled={submitting}
           aria-describedby={error ? errorId : undefined}
         >

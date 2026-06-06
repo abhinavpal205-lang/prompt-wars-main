@@ -26,18 +26,3 @@
   overflow-y: auto;
   margin-bottom: var(--space-3);
 }
-
-.primary {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-sm);
-  padding: var(--space-2) var(--space-4);
-  font-size: 1.05rem;
-  font-weight: 650;
-  cursor: pointer;
-}
-
-.primary:hover {
-  background: var(--accent-strong);
-}

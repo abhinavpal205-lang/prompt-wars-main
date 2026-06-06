@@ -49,7 +49,7 @@ export function TrendDashboard({ onCheckin }: TrendDashboardProps) {
               ? 'All your data has been deleted.'
               : 'No check-ins yet — your trend will appear here.'}
           </p>
-          <button type="button" className={styles.primary} onClick={onCheckin}>
+          <button type="button" className="btnPrimary" onClick={onCheckin}>
             Do a check-in
           </button>
         </div>
@@ -135,7 +135,7 @@ export function TrendDashboard({ onCheckin }: TrendDashboardProps) {
         Sahaay keeps only coarse check-in summaries and your encrypted note — never audio, video, or
         transcripts.
       </p>
-      <button type="button" className={styles.danger} onClick={handleDelete} disabled={deleting}>
+      <button type="button" className="btnDanger" onClick={handleDelete} disabled={deleting}>
         {deleting ? 'Deleting…' : 'Delete all my data'}
       </button>
     </section>

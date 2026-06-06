@@ -89,6 +89,55 @@ a {
   left: var(--space-2);
 }
 
+/* --- Shared button styles (one source of truth for all actions) --------- */
+
+.btnPrimary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-4);
+  font-size: 1.05rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.btnPrimary:hover:enabled {
+  background: var(--accent-strong);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.btnSecondary {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+}
+
+.btnSecondary:hover {
+  border-color: var(--accent);
+}
+
+.btnDanger {
+  background: var(--danger-soft);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.btnDanger:disabled {
+  opacity: 0.6;
+}
+
 .visuallyHidden {
   position: absolute;
   width: 1px;

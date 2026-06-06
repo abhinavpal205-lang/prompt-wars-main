@@ -71,7 +71,7 @@ export function ResultCard({ result, onDone, onCalm }: ResultCardProps) {
             Take a calming minute
           </button>
         )}
-        <button type="button" className={styles.done} onClick={onDone}>
+        <button type="button" className="btnPrimary" onClick={onDone}>
           Done
         </button>
       </div>

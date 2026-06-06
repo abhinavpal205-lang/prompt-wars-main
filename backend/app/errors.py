@@ -37,6 +37,13 @@ class UpstreamServiceError(AppError):
     code = "upstream_error"
 
 
+class CalmingContextError(AppError):
+    """A calming token was requested without valid non-crisis context."""
+
+    status_code = 400
+    code = "calming_context_required"
+
+
 def _app_error_response(error: AppError) -> JSONResponse:
     return JSONResponse(
         status_code=error.status_code,

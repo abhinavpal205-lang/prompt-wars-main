@@ -88,18 +88,3 @@
   font-weight: 650;
   cursor: pointer;
 }
-
-.done {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-sm);
-  padding: var(--space-2) var(--space-4);
-  font-size: 1.05rem;
-  font-weight: 650;
-  cursor: pointer;
-}
-
-.done:hover {
-  background: var(--accent-strong);
-}

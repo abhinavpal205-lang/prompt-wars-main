@@ -37,7 +37,7 @@ export function CrisisScreen({ resources, onBack }: CrisisScreenProps) {
         If you can, tell someone near you how you&apos;re feeling — a parent, a sibling, a friend, a
         teacher. You don&apos;t have to find perfect words.
       </p>
-      <button type="button" className={styles.back} onClick={onBack}>
+      <button type="button" className="btnSecondary" onClick={onBack}>
         Back to Sahaay
       </button>
     </section>
