@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { api } from './api/client';
 import styles from './App.module.css';
 import { CalmingSession } from './components/CalmingSession';
@@ -22,11 +22,24 @@ type Screen =
   | 'settings'
   | 'calming';
 
+const SCREEN_TITLES: Record<Screen, string> = {
+  home: 'Check in',
+  form: 'Quick form check-in',
+  voice: 'Voice check-in',
+  result: 'Your reflection',
+  crisis: 'Support right now',
+  dashboard: 'Your dashboard',
+  settings: 'Settings',
+  calming: 'A calming minute',
+};
+
 export function App() {
   const [screen, setScreen] = useState<Screen>('home');
   const [result, setResult] = useState<CheckinResult | null>(null);
   const [profile, setProfile] = useState<ProfileOut | null>(null);
   const [profileLoaded, setProfileLoaded] = useState(false);
+  const mainRef = useRef<HTMLElement>(null);
+  const firstRenderRef = useRef(true);
 
   useEffect(() => {
     api
@@ -37,6 +50,17 @@ export function App() {
         setProfileLoaded(true);
       });
   }, []);
+
+  // SPA navigation a11y: announce the new screen via the document title and
+  // move focus to the main region (skipped on initial page load).
+  useEffect(() => {
+    document.title = `${SCREEN_TITLES[screen]} — Sahaay`;
+    if (firstRenderRef.current) {
+      firstRenderRef.current = false;
+      return;
+    }
+    mainRef.current?.focus();
+  }, [screen]);
 
   const handleResult = (checkin: CheckinResult) => {
     setResult(checkin);
@@ -97,7 +121,8 @@ export function App() {
         </nav>
       </header>
 
-      <main id="main" className={styles.main}>
+      {/* tabIndex -1 lets the skip link and screen changes set focus here */}
+      <main id="main" className={styles.main} ref={mainRef} tabIndex={-1}>
         {!profileLoaded && <p role="status">Loading…</p>}
 
         {profileLoaded && showOnboarding && profile && (

@@ -84,6 +84,28 @@ independent of any scoring. A "Need help now?" link is reachable from every scre
   never raw HTML.
 - `slowapi` rate limits on every endpoint; non-root Docker user; `.env` is gitignored.
 
+## Accessibility (WCAG 2.1 AA)
+
+Accessibility is designed in, statically enforced, and tested:
+
+- **Equal-status non-voice path.** The quick form is a first-class alternative to voice — no mic,
+  no camera, fully keyboard-operable. Voice failures always offer the form.
+- **Semantics & structure.** Landmarks (`header`/`nav`/`main`/`footer`), one `h1` per screen,
+  correct heading order, `fieldset`/`legend` radio groups, labels on every input, skip-to-content
+  link.
+- **SPA navigation.** Each screen change updates `document.title` and moves focus to the `main`
+  region, so screen-reader users always know where they are.
+- **Live regions.** Voice captions and status use `role="log"`/`aria-live="polite"`; form errors
+  use `role="alert"`; the calming timer is a text `role="timer"` (no animation — reduced-motion
+  safe, plus a global `prefers-reduced-motion` override).
+- **Color is never the only cue.** Wellbeing bands pair color with icon + text label; AA-contrast
+  design tokens throughout; visible `:focus-visible` outlines.
+- **Crisis help is always reachable** via the persistent "Need help now?" header link; helpline
+  numbers are large `tel:` links.
+- **Enforced & tested.** `eslint-plugin-jsx-a11y` (strict) runs in lint/CI; **jest-axe asserts
+  zero violations on every screen** (mode select, form, result, voice, calming, dashboard,
+  settings/onboarding, crisis, and the full app shell), plus a focus-management test.
+
 ## Tests
 
 ```bash

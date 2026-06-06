@@ -1,5 +1,6 @@
 import js from '@eslint/js';
 import prettier from 'eslint-config-prettier';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
 import reactHooks from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
 
@@ -7,6 +8,7 @@ export default tseslint.config(
   { ignores: ['dist', 'coverage', 'node_modules'] },
   js.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
+  jsxA11y.flatConfigs.strict,
   {
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
