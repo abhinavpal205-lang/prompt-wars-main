@@ -15,6 +15,11 @@ def utcnow() -> datetime:
     return datetime.now(UTC)
 
 
+def as_utc(value: datetime) -> datetime:
+    """Treat naive datetimes from SQLite as UTC (they are stored that way)."""
+    return value if value.tzinfo else value.replace(tzinfo=UTC)
+
+
 class StudentProfile(SQLModel, table=True):
     """The student's profile and parent-notification consent."""
 
