@@ -53,7 +53,9 @@ class AIGateway(Protocol):
         """Audio-input call via Chat Completions, parsed into ``schema``."""
         ...
 
-    async def mint_realtime_secret(self) -> RealtimeTokenResponse:
+    async def mint_realtime_secret(
+        self, *, instructions: str, ttl_seconds: int
+    ) -> RealtimeTokenResponse:
         """Mint a short-lived realtime client secret (GA flow)."""
         ...
 
@@ -144,23 +146,26 @@ class OpenAIGateway:
         text = completion.choices[0].message.content or ""
         return schema.model_validate_json(_extract_json(text))
 
-    async def mint_realtime_secret(self) -> RealtimeTokenResponse:
+    async def mint_realtime_secret(
+        self, *, instructions: str, ttl_seconds: int = _TOKEN_TTL_SECONDS
+    ) -> RealtimeTokenResponse:
         """Mint an ephemeral client secret for the browser's realtime session.
 
         Uses the GA endpoint (``POST /v1/realtime/client_secrets``); the
         session model and instructions are pinned server-side so the browser
-        can never change them.
+        can never change them. ``ttl_seconds`` doubles as a server-side cap
+        on session length (e.g. the 70s calming-companion backstop).
         """
         if not self.configured:
             raise RealtimeUnavailableError(
                 "Voice mode is unavailable: no OpenAI key configured on the server."
             )
         body = {
-            "expires_after": {"anchor": "created_at", "seconds": _TOKEN_TTL_SECONDS},
+            "expires_after": {"anchor": "created_at", "seconds": ttl_seconds},
             "session": {
                 "type": "realtime",
                 "model": constants.REALTIME_MODEL,
-                "instructions": constants.VOICE_INSTRUCTIONS,
+                "instructions": instructions,
             },
         }
         try:

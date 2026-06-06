@@ -105,7 +105,7 @@ export function VoiceCheckin({ onResult, onUseForm }: VoiceCheckinProps) {
         </div>
       )}
 
-      <div className={styles.captions} aria-live="polite" aria-label="Live captions">
+      <div className={styles.captions} role="log" aria-live="polite" aria-label="Live captions">
         {captions.length === 0 && status === 'live' && (
           <p className={styles.captionHint}>Captions appear here as you talk.</p>
         )}

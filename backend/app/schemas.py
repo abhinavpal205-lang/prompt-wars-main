@@ -175,6 +175,14 @@ class DeletionResult(BaseModel):
 # ---------------------------------------------------------------------------
 
 
+class RealtimeTokenRequest(BaseModel):
+    """Which realtime profile to mint, with optional calming context."""
+
+    profile: Literal["intake", "calming"] = "intake"
+    band: Band | None = None
+    triggers: list[str] = Field(default_factory=list, max_length=10)
+
+
 class RealtimeTokenResponse(BaseModel):
     """Ephemeral client secret for the browser's realtime session."""
 

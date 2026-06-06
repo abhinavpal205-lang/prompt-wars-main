@@ -13,10 +13,11 @@ const MODALITY_LABEL: Record<string, string> = {
 interface ResultCardProps {
   result: CheckinResult;
   onDone: () => void;
+  onCalm?: () => void;
 }
 
 /** A gentle, transparent reflection of the check-in (never a diagnosis). */
-export function ResultCard({ result, onDone }: ResultCardProps) {
+export function ResultCard({ result, onDone, onCalm }: ResultCardProps) {
   const meta = BAND_META[result.band];
   return (
     <section aria-labelledby="result-heading" className={styles.card}>
@@ -63,9 +64,17 @@ export function ResultCard({ result, onDone }: ResultCardProps) {
         </p>
       </details>
 
-      <button type="button" className={styles.done} onClick={onDone}>
-        Done
-      </button>
+      <div className={styles.actions}>
+        {/* Never offered for a crisis check-in — CrisisScreen takes over there. */}
+        {!result.crisis && onCalm && (
+          <button type="button" className={styles.calm} onClick={onCalm}>
+            Take a calming minute
+          </button>
+        )}
+        <button type="button" className={styles.done} onClick={onDone}>
+          Done
+        </button>
+      </div>
     </section>
   );
 }

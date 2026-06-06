@@ -89,6 +89,12 @@ export interface DeletionResult {
   deleted_notifications: number;
 }
 
+export interface RealtimeTokenRequest {
+  profile: 'intake' | 'calming';
+  band?: Band;
+  triggers?: string[];
+}
+
 export interface RealtimeTokenResponse {
   value: string;
   expires_at: number;

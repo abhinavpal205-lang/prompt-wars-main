@@ -2,6 +2,7 @@ import { RealtimeAgent, RealtimeSession } from '@openai/agents-realtime';
 import type { RealtimeItem } from '@openai/agents-realtime';
 import { useCallback, useRef, useState } from 'react';
 import { api, ApiError } from '../api/client';
+import type { RealtimeTokenRequest } from '../types';
 
 export type VoiceStatus = 'idle' | 'connecting' | 'live' | 'ended' | 'error';
 
@@ -34,21 +35,24 @@ export function toCaptions(history: RealtimeItem[]): CaptionLine[] {
 }
 
 /**
- * Manages the realtime voice conversation: token fetch, WebRTC connect,
- * live captions, and a clean transcript for the check-in submission.
+ * Manages a realtime voice conversation (intake or calming profile): token
+ * fetch, WebRTC connect, live captions, and a clean transcript.
  * The instructions and model are pinned server-side in the minted secret.
  */
-export function useVoiceSession() {
+export function useVoiceSession(tokenRequest?: RealtimeTokenRequest) {
   const [status, setStatus] = useState<VoiceStatus>('idle');
   const [captions, setCaptions] = useState<CaptionLine[]>([]);
   const [error, setError] = useState<string | null>(null);
   const sessionRef = useRef<RealtimeSession | null>(null);
+  // Ref keeps `connect` stable even when callers pass an inline object.
+  const requestRef = useRef(tokenRequest);
+  requestRef.current = tokenRequest;
 
   const connect = useCallback(async () => {
     setStatus('connecting');
     setError(null);
     try {
-      const token = await api.mintRealtimeToken();
+      const token = await api.mintRealtimeToken(requestRef.current);
       const agent = new RealtimeAgent({ name: 'Sahaay' });
       const session = new RealtimeSession(agent, { model: token.model });
       session.on('history_updated', (history) => {

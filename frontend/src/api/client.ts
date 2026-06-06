@@ -6,6 +6,7 @@ import type {
   FormResponse,
   ProfileOut,
   ProfileUpdate,
+  RealtimeTokenRequest,
   RealtimeTokenResponse,
   SentNotificationOut,
   TrendsResponse,
@@ -58,8 +59,11 @@ export const api = {
     request('/api/checkin/form', { method: 'POST', body: JSON.stringify(payload) }),
   voiceCheckin: (payload: VoiceCheckinRequest): Promise<CheckinResult> =>
     request('/api/checkin/voice', { method: 'POST', body: JSON.stringify(payload) }),
-  mintRealtimeToken: (): Promise<RealtimeTokenResponse> =>
-    request('/api/realtime/token', { method: 'POST' }),
+  mintRealtimeToken: (tokenRequest?: RealtimeTokenRequest): Promise<RealtimeTokenResponse> =>
+    request('/api/realtime/token', {
+      method: 'POST',
+      body: tokenRequest ? JSON.stringify(tokenRequest) : undefined,
+    }),
   getTrends: (): Promise<TrendsResponse> => request('/api/history/trends'),
   deleteAllData: (): Promise<DeletionResult> => request('/api/history', { method: 'DELETE' }),
 };

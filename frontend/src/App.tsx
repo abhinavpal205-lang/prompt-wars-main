@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { api } from './api/client';
 import styles from './App.module.css';
+import { CalmingSession } from './components/CalmingSession';
 import { CrisisScreen } from './components/CrisisScreen';
 import { Disclaimer } from './components/Disclaimer';
 import { FormCheckin } from './components/FormCheckin';
@@ -11,7 +12,15 @@ import { TrendDashboard } from './components/TrendDashboard';
 import { VoiceCheckin } from './components/VoiceCheckin';
 import type { CheckinResult, ProfileOut } from './types';
 
-type Screen = 'home' | 'form' | 'voice' | 'result' | 'crisis' | 'dashboard' | 'settings';
+type Screen =
+  | 'home'
+  | 'form'
+  | 'voice'
+  | 'result'
+  | 'crisis'
+  | 'dashboard'
+  | 'settings'
+  | 'calming';
 
 export function App() {
   const [screen, setScreen] = useState<Screen>('home');
@@ -131,6 +140,21 @@ export function App() {
                 result={result}
                 onDone={() => {
                   setScreen('dashboard');
+                }}
+                onCalm={() => {
+                  setScreen('calming');
+                }}
+              />
+            )}
+            {screen === 'calming' && result && !result.crisis && (
+              <CalmingSession
+                band={result.band}
+                triggers={result.likely_triggers}
+                onDone={() => {
+                  setScreen('result');
+                }}
+                onCrisis={() => {
+                  setScreen('crisis');
                 }}
               />
             )}

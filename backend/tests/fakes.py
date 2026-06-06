@@ -64,9 +64,13 @@ class FakeGateway:
         self.calls.append(f"audio:{model}:{schema.__name__}")
         return self._resolve(schema)
 
-    async def mint_realtime_secret(self) -> RealtimeTokenResponse:
+    async def mint_realtime_secret(
+        self, *, instructions: str, ttl_seconds: int = 600
+    ) -> RealtimeTokenResponse:
         if not self._configured:
             raise RealtimeUnavailableError("Voice mode is unavailable in tests")
+        self.calls.append(f"mint:{ttl_seconds}")
+        self.last_content = instructions
         return RealtimeTokenResponse(
             value="ek_test_token", expires_at=1_900_000_000, model=constants.REALTIME_MODEL
         )
